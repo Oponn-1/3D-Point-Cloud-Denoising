@@ -6,8 +6,9 @@
 ///////////////// NON ITERATIVE FEATURE PRESERVING MESH SMOOTHING /////////////////////////
 //
 //	This is an implementation of the mesh smoothing algorithm described in 
-//	the eponymous publication from MIT. The code is elaborates on Thuis Jone's
-//	original implementation. 
+//	the eponymous publication from MIT. The code elaborates on Thuis Jone's
+//	original implementation, as well as including detailed documentation 
+//	not written in the original source code. 
 //
 
 
@@ -77,6 +78,47 @@ gdouble exp_dist(double x, double sigma)
 {
 	return (sigma * (exp(-sigma * x)));
 }
+
+
+////////////////////////////////////////////////////////////////////
+//
+//	Name:	get_factorial
+//
+//	Use:	Calculates factorial of given x.
+//
+//	Parameters...
+//	x:	Integer to get the factorial of.
+
+int get_factorial(int x)
+{
+	int retval = 1;
+	for (int i = x; i > 1; --i)
+		retval *= i;
+	return retval;
+}
+
+
+////////////////////////////////////////////////////////////////////
+//
+//	Name:	gamma_dist
+//
+//	Use:	Calculates the value of the gamma distribution 
+//		at the given x.
+//
+//	Parameters...
+//	x:	The variable passed into the distribution function
+//
+//	k:	The first parameter of the gamma distribution
+//	theta:	The second parameter of the gamma distribution
+
+gdouble gamma_dist(double x, double k, double theta)
+{
+	double gamma_func = (double) get_factorial((int)k-1);
+	double denominator = gamma_func * pow(theta, k);
+	double nominator = pow(x, (k-1)) * exp(-x/theta);
+	return (nominator/denominator);
+}
+
 
 ////////////////////////////////////////////////////////////////////
 //
@@ -251,6 +293,9 @@ filter(GtsVertex *cur_vert, GtsVertex *weighted_pos, gdouble *k,
   	if (dist_mode == 2) {
   		w = area * exp_dist(dmin, spatial_sigma) * exp_dist(pdist, influence_sigma);
   	}
+	if (dist_mode == 3) {
+		w = area * gamma_dist(dmin, spatial_sigma, spatial_sigma) * gamma_dist(pdist, influence_sigma, influence_sigma);
+	}
     } else {
 	// don't calculate projection distance if no weight assigned to it
     	if (dist_mode == 1) {
@@ -258,6 +303,9 @@ filter(GtsVertex *cur_vert, GtsVertex *weighted_pos, gdouble *k,
 	}
 	if (dist_mode == 2) {
 		w = area * exp_dist(dmin, spatial_sigma);
+	}
+	if (dist_mode == 3) {
+		w = area * gamma_dist(dmin, spatial_sigma, spatial_sigma);
 	}
     }
 
