@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[62]:
-
-
 '''
     Bilateral Mesh Denoising Implementation
     
