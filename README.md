@@ -14,4 +14,4 @@ python3 subprocess_test.py  # temp test alpha
 - [ ] Run evaluation on 3 datasets
 
 ## ISSUE
-1. support Linux environment so far 
+1. only support Linux environment so far 
