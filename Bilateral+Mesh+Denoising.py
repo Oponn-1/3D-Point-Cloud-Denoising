@@ -177,7 +177,7 @@ for i in range(iterations):
     sigma_c = 0 
     sigma_s = 0
     # progress bar
-    toolbar_width = 40
+    toolbar_width = 50
     sys.stdout.write("[%s]"  % (" " * toolbar_width))
     sys.stdout.flush()
     sys.stdout.write("\b" * (toolbar_width+1))
