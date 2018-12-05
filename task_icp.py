@@ -30,7 +30,7 @@ def draw_registration_result(source, target, transformation):
     draw_geometries([source_temp, target_temp])
 
 
-def _metrics_eval(source, target, threshold, trans_init):
+def metrics_eval(source, target, threshold, trans_init):
     # draw_registration_result(source, target, trans_init)
     print("Initial alignment")
     evaluation = evaluate_registration(source, target,
@@ -43,14 +43,12 @@ def _metrics_eval(source, target, threshold, trans_init):
     # print("")
 
 
-def _p2p_icp(source, target, threshold, trans_init):
+def p2p_icp(source, target, threshold, trans_init):
     print("Apply point-to-point ICP")
 
     reg_p2p = registration_icp(source, target, threshold, trans_init,
-            TransformationEstimationPointToPoint())  # default 30 iter
-    # reg_p2p = registration_icp(source, target, threshold, trans_init,
-    #     TransformationEstimationPointToPoint(),
-    #     ICPConvergenceCriteria(max_iteration = 2000))
+        TransformationEstimationPointToPoint(),
+        ICPConvergenceCriteria(max_iteration = 30))  # default 30 cant delete this line, and max 2000 
 
     print(reg_p2p)
 
@@ -61,7 +59,7 @@ def _p2p_icp(source, target, threshold, trans_init):
     # draw_registration_result(source, target, reg_p2p.transformation)
 
 
-def _p2l_ecp(source, target, threshold, trans_init):
+def p2l_icp(source, target, threshold, trans_init):
     # assume no normalized point 
     estimate_normals(source, search_param = KDTreeSearchParamHybrid(
             radius = 0.1, max_nn = 30))  # default 
@@ -73,10 +71,8 @@ def _p2l_ecp(source, target, threshold, trans_init):
     print("Apply point-to-plane ICP")
 
     reg_p2l = registration_icp(source, target, threshold, trans_init,
-            TransformationEstimationPointToPlane())  # default 30 
-    # reg_p2l = registration_icp(source, target, threshold, trans_init,
-    #     TransformationEstimationPointToPlane(),
-    #     ICPConvergenceCriteria(max_iteration = 2000))  # long long 
+        TransformationEstimationPointToPlane(),
+        ICPConvergenceCriteria(max_iteration = 30))  # default 30 cant delete this line, and max 2000 long long 
 
     print(reg_p2l)
 
@@ -84,23 +80,13 @@ def _p2l_ecp(source, target, threshold, trans_init):
     print("Transformation is:")
     print(reg_p2l.transformation)
     print("")
-
     # draw_registration_result(source, target, reg_p2l.transformation)
 
 
-def icp_eval(source, target):
-    threshold = 0.02  # default 
-
-    # no trans 
-    trans_init = np.asarray(
-                [[1.0, 0.0, 0.0, 0.0],
-                [0.0, 1.0, 0.0, 0.0],
-                [0.0, 0.0, 1.0, 0.0],
-                [0.0, 0.0, 0.0, 1.0]])
-
-    # _metrics_eval(source, target, threshold, trans_init)  # not icp but eval ok 
-    _p2p_icp(source, target, threshold, trans_init)
-    _p2l_ecp(source, target, threshold, trans_init)
+def icp_eval(source, target, threshold, trans_init):
+    # metrics_eval(source, target, threshold, trans_init)  # not icp but eval ok 
+    p2p_icp(source, target, threshold, trans_init)
+    p2l_icp(source, target, threshold, trans_init)
 
 
 # input 2 files 
@@ -110,16 +96,22 @@ def load_xyz(source_file_path, target_file_path):
     return source, target
 
 
+def init_para(threshold=0.02, trans_init=np.asarray([[1.0, 0.0, 0.0, 0.0],[0.0, 1.0, 0.0, 0.0],[0.0, 0.0, 1.0, 0.0],[0.0, 0.0, 0.0, 1.0]])):
+    return threshold, trans_init
+
+
 # local demo 
 def test():
     #### CREDIT: testing point cloud files from the IDETC paper #### 
     source_path = './TestData/15.xyz'
-    target_path = './TestData/15_slight.xyz'  # delete few head lines 
+    # target_path = './TestData/15_slight.xyz'  # delete few head lines 
     # target_path = './TestData/15.xyz'  # same  
-    # target_path = './TestData/16.xyz'  # unmatched dataset try it out 
+    target_path = './TestData/16.xyz'  # unmatched dataset try it out 
 
-    source, target = load_xyz(source_path, target_path) 
-    icp_eval(source, target)
+    source, target = load_xyz(source_path, target_path)
+
+    threshold, trans_init = init_para()
+    icp_eval(source, target, threshold, trans_init)
 
 
 if __name__ == "__main__":
@@ -130,8 +122,9 @@ if __name__ == "__main__":
 """
 quick helper
 from task_icp import * 
-# from task_icp import load_xyz, icp_eval, draw_registration_result, paint
+# from task_icp import load_xyz, icp_eval, draw_registration_result, paint, metrics_eval, p2p_icp, p2l_icp, init_para
 
 source, target = load_xyz(source_path, target_path) # in xyz format plz 
-icp_eval(source, target)
+threshold, trans_init = init_para()
+icp_eval(source, target, threshold, trans_init)
 """
