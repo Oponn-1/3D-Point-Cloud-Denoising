@@ -37,15 +37,25 @@
     
 ''' 
 from scipy.spatial import Delaunay
+from scipy.spatial import ConvexHull
 import numpy as np
 import math
+import sys
 
-f = open('1.xyz','r')
+filename = input("Input filename: ")
+
+# how many points to skip in subsampling
+sub_sampling = int(input("Sub sampling (0 for none): "))
+
+# how many times to smooth the mesh
+iterations = int(input("Algorithm iterations: "))
+
+# how many levels of neighbors to include in normal calculations
+n_degree = int(input("Neighbor range (for normals): "))
+
+f = open(filename,'r')
 
 p = []
-
-# Number of passes through the mesh
-iterations = 1
 
 # Create array with points read from file
 for l in f:
@@ -58,8 +68,9 @@ for l in f:
 
 points = np.array(p)
 
-# Subsampling must be done because Delaunay triangulation is very slow otherwise
-points = points[::20]
+# Subsampling can be done since Delaunay triangulation is very slow otherwise
+if (sub_sampling > 0):
+    points = points[::sub_sampling]
 
 print("Points Loaded")
 
@@ -67,6 +78,16 @@ print("Points Loaded")
 
 # Generate triangulation of the points, QJ ensures all points are used
 tri = Delaunay(points[:-1], qhull_options="Qbb Qc Qz Q12 QJ Qt")
+'''
+hull = ConvexHull(points)
+hull_points = []
+for v in hull.vertices:
+    hull_points.append(points[v])
+points = hull_points
+points = np.array(points)
+tri = Delaunay(points[:-1], qhull_options="Qbb Qc Qz Q12 QJ Qt")
+'''
+
 
 print("Triangulation Complete")
 
@@ -145,18 +166,26 @@ def calc_normal(v, degree):
 '''
 Below is the implementation of the algorithm itself
 '''
-iterations = 2
 points = points.astype(np.float)
+
 # Vertex modification passes
 for i in range(iterations):
+    print("Iteration: " + str(i))
     new_points = []
     index = 0
     # algorithm parameters, set for each vertex below
     sigma_c = 0 
     sigma_s = 0
+    # progress bar
+    toolbar_width = 40
+    sys.stdout.write("[%s]"  % (" " * toolbar_width))
+    sys.stdout.flush()
+    sys.stdout.write("\b" * (toolbar_width+1))
+    bar_step = round(points.shape[0] / toolbar_width)
+    
     for p in points:
         # calculate normal
-        normal, neighbor_points = calc_normal(p, 2)
+        normal, neighbor_points = calc_normal(p, n_degree)
         # calculate sigma_c...................
         sigma_c = neighborhood_radius(p)
         # get neighbor points
@@ -171,16 +200,18 @@ for i in range(iterations):
         offsets = []
         # calculate average offset
         for n in neighbors:
-            t = np.linalg.norm([x * np.dot((n - p), normal) for x in normal]);
-            t = math.sqrt(t*t);
-            average_offset += t;
-            offsets.append(t);
-        average_offset /= len(neighbors)
+            t = np.linalg.norm([x * np.dot((n - p), normal) for x in normal])
+            t = math.sqrt(t*t)
+            average_offset += t
+            offsets.append(t)
+        if (len(neighbors) != 0):
+            average_offset /= len(neighbors)
         # calculate standard deviation
         o_sum = 0
         for o in offsets:
             o_sum += (o - average_offset) * (o - average_offset)
-        o_sum /= len(offsets)
+        if (len(offsets)):
+            o_sum /= len(offsets)
         sigma_s = math.sqrt(o_sum)
         # enforce a bottom bound on sigma_c
         minimum = 1.0e-12
@@ -191,25 +222,33 @@ for i in range(iterations):
         normalizer = 0
         for n in neighbors:
             t = np.linalg.norm(n - p)
-            h = np.linalg.norm([x * np.dot((n - p), normal) for x in normal]);
-            wc = math.exp((-1*t*t)/(2 * sigma_c *sigma_c));
-            ws = math.exp((-1*h*h)/(2 * sigma_s *sigma_s));
-            total += wc * ws * h;
-            normalizer += wc * ws;
+            h = np.linalg.norm([x * np.dot((n - p), normal) for x in normal])
+            wc = math.exp((-1*t*t)/(2 * sigma_c *sigma_c))
+            ws = math.exp((-1*h*h)/(2 * sigma_s *sigma_s))
+            total += wc * ws * h
+            normalizer += wc * ws
         # add new position
-        factor = total/normalizer
+        if (normalizer != 0):
+            factor = total/normalizer
         modification = [n * factor for n in normal]
         new_point = p + modification
         new_points.append(new_point)
         index += 1
+        if (index % bar_step == 0):
+            sys.stdout.write("-")
+            sys.stdout.flush()
     # update positions
     points = np.array(new_points)
     points = points.astype(np.float)
+    sys.stdout.write("\n")
+
+sys.stdout.write("\n")
     
 # write the data in .xyz format to a file
-save_file = open("clean.xyz", "w")
+save_filename = input("Cleaned filename: ")
+save_file = open(save_filename, "w")
 save_file.write("")
-save_file = open("clean.xyz", "a")
+save_file = open(save_filename, "a")
 for p in points: 
     save_file.write(str(p[0]) + " " + str(p[1]) + " " + str(p[2]) + "\n")
 
