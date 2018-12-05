@@ -109,7 +109,7 @@ def neighborhood_radius(v):
     for n in neighbors:
         if (n != -1):
             for p in tri.simplices[n]:
-                dist = np.linalg.norm(v-p)
+                dist = np.linalg.norm(v-points[p])
                 if ((dist > 0) and (dist < maximum)):
                     maximum = dist
     return maximum
@@ -235,7 +235,7 @@ for i in range(iterations):
         new_points.append(new_point)
         index += 1
         if (index % bar_step == 0):
-            sys.stdout.write("-")
+            sys.stdout.write("#")
             sys.stdout.flush()
     # update positions
     points = np.array(new_points)
