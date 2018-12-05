@@ -20,10 +20,14 @@ For Reference (this was surprisingly hard to find in the documentation):
 Function:   input_triangulation()
 Use:        return Delaunay triangulation of input .xyz file
 '''
-def input_triangulation():
+def input_triangulation(testing):
 
-    filename = input("Input file name: ")
-    subsample_rate = int(input("Subsampling rate (0 for none): "))
+    filename = "bunny.xyz"
+    subsample_rate = 5
+
+    if (not testing):
+        filename = input("Input file name: ")
+        subsample_rate = int(input("Subsampling rate (0 for none): "))
 
     f = open(filename, 'r')
 
@@ -82,9 +86,11 @@ Function:   gts_write()
 Use:        convert point cloud into gts file for non iterative
             algorithm execution
 '''
-def gts_write(tri, points):
+def gts_write(tri, points, testing):
 
-    filename = input("New GTS filename: ")
+    filename = "bunny_mesh.gts"
+    if (not testing):
+        filename = input("Initial GTS generation filename: ")
 
     print("Formatting mesh data...")
 

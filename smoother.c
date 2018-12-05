@@ -490,7 +490,7 @@ int main (int argc, char * argv[])
   sigma_f = atof(argv[1]);
   sigma_g = atof(argv[2]);
   dist_mode = atof(argv[3]);
-  printf("# sigma_f %f   sigma_g %f\n", sigma_f, sigma_g);
+  //printf("# sigma_f %f   sigma_g %f\n", sigma_f, sigma_g);
 
   // scale by mean edge length
   sigma_f *= qstats.edge_length.mean;
@@ -518,7 +518,7 @@ int main (int argc, char * argv[])
   // shift all points 
   gts_surface_foreach_vertex(s, move_vertex, NULL);
 
-  printf("# time taken: %d secs\n", (guint) (time(NULL) - start));
+  //printf("# time taken: %d secs\n", (guint) (time(NULL) - start));
 
   gts_surface_write(s, stdout);
 

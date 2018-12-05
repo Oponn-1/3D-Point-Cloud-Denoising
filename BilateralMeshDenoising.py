@@ -113,17 +113,33 @@ def calc_normal(v, degree, tri, points):
     return normal_normalized, neighbor_points
 
 
-def run_bilateral_denoising():
-    filename = input("Input filename: ")
+'''
+Function:   run_bilateral_denoising
+Use:        to execute this algorithm from another script
+'''
+def run_bilateral_denoising(testing):
 
-    # how many points to skip in subsampling
-    sub_sampling = int(input("Sub sampling (0 for none): "))
+    print("***********************************")
+    print("Running Bilateral Mesh Smoothing...")
+    print("***********************************")
 
-    # how many times to smooth the mesh
-    iterations = int(input("Algorithm iterations: "))
+    # testing defaults for parameters
+    filename = "bunny.xyz"
+    sub_sampling = 5
+    iterations = 2
+    n_degree = 4
 
-    # how many levels of neighbors to include in normal calculations
-    n_degree = int(input("Neighbor range (for normals): "))
+    if (not testing):
+        filename = input("Input filename: ")
+
+        # how many points to skip in subsampling
+        sub_sampling = int(input("Sub sampling (0 for none): "))
+
+        # how many times to smooth the mesh
+        iterations = int(input("Algorithm iterations: "))
+
+        # how many levels of neighbors to include in normal calculations
+        n_degree = int(input("Neighbor range (for normals): "))
 
     f = open(filename,'r')
 
@@ -246,7 +262,9 @@ def run_bilateral_denoising():
     sys.stdout.write("\n")
         
     # write the data in .xyz format to a file
-    save_filename = input("Cleaned filename: ")
+    save_filename = "bunny_bms_denoised.xyz"
+    if (not testing):
+        save_filename = input("Cleaned filename: ")
     save_file = open(save_filename, "w")
     save_file.write("")
     save_file = open(save_filename, "a")
