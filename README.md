@@ -12,6 +12,3 @@ python3 subprocess_test.py
 - [X] Choose / Implement ICP 
 - [ ] Write overall execution script
 - [ ] Run evaluation on 3 datasets
-
-## ISSUE
-1. only support Linux environment so far 
