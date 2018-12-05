@@ -1,6 +1,7 @@
 from scipy.spatial import Delaunay
 import numpy as np
 import math
+import subprocess
 from cloud_to_gts import input_triangulation
 from cloud_to_gts import gts_write
 
@@ -31,5 +32,3 @@ def run_non_iterative():
             subprocess.run(["./smoother", arg1, arg1, dist_mode], stdin=f, stdout=o)
     
 
-
-run_non_iterative()
