@@ -1,4 +1,4 @@
-from task_icp import * 
+from ICPEval import *
 
 # from task_icp import load_xyz, icp_eval, draw_registration_result, paint, metrics_eval, p2p_icp, p2l_icp, init_para
 
