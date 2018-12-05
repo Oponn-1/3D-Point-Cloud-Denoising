@@ -34,6 +34,3 @@ Always use file extensions when prompted for a filename (it will either be .xyz 
 - [X] Choose / Implement ICP 
 - [X] Write overall execution script
 - [ ] Compile the smoother.c to MacOS & Windows executables
-
-## ISSUE
-1. only support Linux environment so far 
