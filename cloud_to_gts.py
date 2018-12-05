@@ -53,13 +53,38 @@ def input_triangulation():
 
 
 '''
+Function:   gts_to_cloud()
+Use:        convert a gts file into an xyz file
+'''
+def gts_to_cloud(filename, out_filename):
+
+    f = open(filename, 'r')
+
+    num_points = 0
+    string_write = ""
+    rowcount = 0
+
+    for l in f:
+        row = l.split()
+        if (rowcount == 0):
+            num_points = int(row[0])
+        elif (rowcount < num_points+1):
+            string_write += l
+        rowcount += 1
+
+    out_f = open(out_filename, 'w')
+    out_f.write(string_write)
+
+        
+
+'''
 Function:   gts_write()
 Use:        convert point cloud into gts file for non iterative
             algorithm execution
 '''
 def gts_write(tri, points):
 
-    filename = input("GTS file name: ")
+    filename = input("New GTS filename: ")
 
     print("Formatting mesh data...")
 
@@ -97,4 +122,6 @@ def gts_write(tri, points):
     for x in faces:
         string_write += str(x[0]) + " " + str(x[1]) + " " + str(x[2]) + "\n"
     f.write(string_write)
+
+    return filename
 

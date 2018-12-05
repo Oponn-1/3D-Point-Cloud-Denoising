@@ -8,7 +8,7 @@ python3 subprocess_test.py
 ```
 
 ## TO-DO 
-- [ ] Write file conversion (.xyz to .gts)
+- [X] Write file conversion (.xyz to .gts)
 - [X] Choose / Implement ICP 
 - [ ] Write overall execution script
 - [ ] Run evaluation on 3 datasets
