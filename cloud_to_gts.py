@@ -23,7 +23,7 @@ Use:        return Delaunay triangulation of input .xyz file
 def input_triangulation():
 
     filename = input("Input file name: ")
-    subsample_rate = int(input("Subsampling rate (0 for none): ")
+    subsample_rate = int(input("Subsampling rate (0 for none): "))
 
     f = open(filename, 'r')
 
@@ -45,8 +45,6 @@ def input_triangulation():
 
     print("Points Loaded")
 
-    print("Triangulating...")
-
     tri = Delaunay(points[:-1], qhull_options="Qbb Qc Qz Q12 QJ Qt")
 
     print("Triangulation Complete")
@@ -63,6 +61,8 @@ def gts_write(tri, points):
 
     filename = input("GTS file name: ")
 
+    print("Formatting mesh data...")
+
     num_points = points.shape[0]
     
     edges = []
@@ -73,9 +73,6 @@ def gts_write(tri, points):
         edges.append([p1, p2])
         edges.append([p2, p3])
         edges.append([p3, p1])
-
-    #edges = np.array(edges)
-    #edges = np.unique(edges)
 
     num_edges = len(edges)
 
@@ -89,13 +86,15 @@ def gts_write(tri, points):
 
     f = open(filename, 'w')
 
+    print("Writing to GTS file...")
+
     string_write = ""
-    f.write(str(num_points) + " " + str(num_edges) + " " + str(num_faces) + "\n")
+    string_write += str(num_points) + " " + str(num_edges) + " " + str(num_faces) + "\n"
     for p in points:
-        string_write = str(p[0]) + " " + str(p[1]) + " " + str(p[2]) + "\n"
+        string_write += str(p[0]) + " " + str(p[1]) + " " + str(p[2]) + "\n"
     for e in edges:
-        string_write = str(e[0]) + " " + str(e[1]) + "\n"
+        string_write += str(e[0]) + " " + str(e[1]) + "\n"
     for x in faces:
-        string_write = str(x[0]) + " " + str(x[1]) + " " + str(x[2]) + "\n"
+        string_write += str(x[0]) + " " + str(x[1]) + " " + str(x[2]) + "\n"
     f.write(string_write)
 
