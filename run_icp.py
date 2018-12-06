@@ -1,6 +1,6 @@
-from task_icp import * 
+from ICPEval import *
 
-# from task_icp import load_xyz, icp_eval, draw_registration_result, paint, metrics_eval, p2p_icp, p2l_icp, init_para
+# from ICPEval import load_xyz, icp_eval, draw_registration_result, paint, metrics_eval, p2p_icp, p2l_icp, init_para
 
 def run_icp(testing):
     print("----------------------")
@@ -18,4 +18,3 @@ def run_icp(testing):
     source, target = load_xyz(f1, f2)
     threshold, trans_init = init_para()
     icp_eval(source, target, threshold, trans_init)
-

@@ -39,7 +39,9 @@ def run_non_iterative(testing):
 
     with open(in_file, 'r') as f:
         with open(out_file, 'w') as o:
-            subprocess.run(["./smoother", arg1, arg1, dist_mode], stdin=f, stdout=o)
+            # todo decide the environment 
+            # subprocess.run(["./smoother", arg1, arg1, dist_mode], stdin=f, stdout=o)
+            subprocess.run(["./smoother_mac", arg1, arg1, dist_mode], stdin=f, stdout=o)  # for mac only
 
     out_xyz = "bunny_nims_smoothed.xyz"
     if (not testing):

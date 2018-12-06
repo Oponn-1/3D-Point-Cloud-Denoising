@@ -105,8 +105,8 @@ def test():
     #### CREDIT: testing point cloud files from the IDETC paper #### 
     source_path = './TestData/15.xyz'
     # target_path = './TestData/15_slight.xyz'  # delete few head lines 
-    # target_path = './TestData/15.xyz'  # same  
-    target_path = './TestData/16.xyz'  # unmatched dataset try it out 
+    target_path = './TestData/15_reversed.xyz'  # reversed completely 
+    # target_path = './TestData/16.xyz'  # unmatched dataset try it out 
 
     source, target = load_xyz(source_path, target_path)
 
@@ -115,14 +115,14 @@ def test():
 
 
 if __name__ == "__main__":
-    # python3 task_icp.py 
+    # python3 ICPEval.py
     test()
 
 
 """
 quick helper
-from task_icp import * 
-# from task_icp import load_xyz, icp_eval, draw_registration_result, paint, metrics_eval, p2p_icp, p2l_icp, init_para
+from ICPEval import * 
+# from ICPEval import load_xyz, icp_eval, draw_registration_result, paint, metrics_eval, p2p_icp, p2l_icp, init_para
 
 source, target = load_xyz(source_path, target_path) # in xyz format plz 
 threshold, trans_init = init_para()
