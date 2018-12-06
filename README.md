@@ -39,6 +39,13 @@ python3 run_icp.py
 
 > When prompted for a filename, always include the extension (it will either be .xyz or .gts, the prompt will tell you).
 
+## INCLUDED DATASET
+The package includes two .xyz files for testing. 
+- bunny.xyz is the base point cloud of a bunny
+- bunny_noisy.xyz is the same point cloud with artificial noise
+
+bunny_noisy.xyz serves for input, and bunny.xyz serves as a base for running ICP.
+
 ## TO-DO 
 - [X] Write file conversion (.xyz to .gts)
 - [X] Choose / Implement ICP 
