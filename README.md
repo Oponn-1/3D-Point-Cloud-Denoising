@@ -1,16 +1,23 @@
 # 3D-Point-Cloud-Denoising
-Scripts to denoise point clouds
+Python scripts to denoise point clouds and evaluate results.
 
-## QUICKSTART
-To install all the necessary python packages:
+This package provides implementations of two algorithms from recent literature. The Non Iterative Feature Preserving method has been enhanced with the inclusion of different probability distributions for weighting of the point shifts.
+
+## SETUP INSTRUCTIONS
+Download the repository as a zip file. Extract the package and go into the project directory. From there, perform the following to install all necessary python packages:
 ```bash
 pip install -r requirements.txt
 ```
 
+## RUNNING INSTRUCTIONS
 To run an automated test that will check if everything is working:
 ```bash
 python3 auto_test.py
 ```
+
+When prompted to select your system, make sure to choose the right one. Currently only Linux and MacOS are supported. The prompt will list the available systems.
+
+When prompted to make any selection out of a numbered list of options, type the number as your response. 
 
 To clean up all the extra files created by the test:
 ```bash
@@ -27,7 +34,7 @@ To run ICP:
 python3 run_icp.py
 ```
 
-Always use file extensions when prompted for a filename (it will either be .xyz or .gts, the prompt will tell you).
+When prompted for a filename, always include the extension (it will either be .xyz or .gts, the prompt will tell you).
 
 ## TO-DO 
 - [X] Write file conversion (.xyz to .gts)

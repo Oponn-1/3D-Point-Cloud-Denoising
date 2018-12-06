@@ -6,7 +6,10 @@ from cloud_to_gts import input_triangulation
 from run_non_iterative import run_non_iterative
 from BilateralMeshDenoising import run_bilateral_denoising
 
-
+'''
+Function:   run_denoise()
+Use:        run user controlled denoising
+'''
 def run_denoise():
     print()
     print("**************************************")
