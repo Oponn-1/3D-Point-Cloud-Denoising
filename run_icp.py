@@ -3,9 +3,9 @@ from ICPEval import *
 # from ICPEval import load_xyz, icp_eval, draw_registration_result, paint, metrics_eval, p2p_icp, p2l_icp, init_para
 
 def run_icp(testing):
-    print("----------------------")
-    print("Running ICP comparison")
-    print("----------------------")
+    print("*************************")
+    print("Running ICP comparison...")
+    print("*************************")
 
     f1 = "bunny_bms_denoised.xyz"
     f2 = "bunny.xyz"

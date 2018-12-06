@@ -9,21 +9,25 @@ from run_icp import run_icp
 
 def test_1():
 
-    print("***********************")
-    print("RUNNING AUTOMATED TEST")
-    print("***********************")
+    print()
+    print("************************************")
+    print("*      RUNNING AUTOMATED TEST      *")
+    print("************************************")
     print()
 
     run_bilateral_denoising(True)
+    print()
     print("BILATERAL MESH DENOISING is FUNCTIONAL")
     print()
 
     run_non_iterative(True)
+    print()
     print("NON ITERATIVE FEATURE PRESERVING MESH SMOOTHING is FUNCTIONAL")
     print()
 
     run_icp(True)
-    print("ICP FUNCTIONAL")
+    print()
+    print("ICP is FUNCTIONAL")
     print()
 
     print("ALL TESTS PASSED")

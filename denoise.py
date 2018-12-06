@@ -8,13 +8,15 @@ from BilateralMeshDenoising import run_bilateral_denoising
 
 
 def run_denoise():
-    print("************************")
-    print("3D POINT CLOUD DENOISING")
-    print("************************")
     print()
-    print("Primary Algorithms: ")
+    print("**************************************")
+    print("*      3D POINT CLOUD DENOISING      *")
+    print("**************************************")
+    print()
+    print("****** Select Primary Algorithm ******")
     print("1: Bilateral Mesh Denoising")
     print("2: Non-Iterative Feature Preserving Mesh Smoothing")
+    print("**************************************")
     print()
 
     method = int(input("Selection: "))
