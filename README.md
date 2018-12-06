@@ -10,31 +10,34 @@ pip install -r requirements.txt
 ```
 
 ## RUNNING INSTRUCTIONS
+### Automated Test
 To run an automated test that will check if everything is working:
 ```bash
 python3 auto_test.py
 ```
 
-When prompted to select your system, make sure to choose the right one. Currently only Linux and MacOS are supported. The prompt will list the available systems.
+> When prompted to select your system, make sure to choose the right one. Currently only Linux and MacOS are supported. The prompt will list the available systems.
 
-When prompted to make any selection out of a numbered list of options, type the number as your response. 
+> When prompted to make any selection out of a numbered list of options, type the number as your response. 
 
 To clean up all the extra files created by the test:
 ```bash
 python3 test_cleanup.py
 ```
 
+### User Controlled Execution
 To run denoising with user input:
 ```bash
 python3 denoise.py
 ```
 
-To run ICP:
+### Iterative Closest Point
+To run ICP on two .xyz files:
 ```bash
 python3 run_icp.py
 ```
 
-When prompted for a filename, always include the extension (it will either be .xyz or .gts, the prompt will tell you).
+> When prompted for a filename, always include the extension (it will either be .xyz or .gts, the prompt will tell you).
 
 ## TO-DO 
 - [X] Write file conversion (.xyz to .gts)
