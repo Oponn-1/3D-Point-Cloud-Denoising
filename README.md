@@ -33,4 +33,5 @@ Always use file extensions when prompted for a filename (it will either be .xyz 
 - [X] Write file conversion (.xyz to .gts)
 - [X] Choose / Implement ICP 
 - [X] Write overall execution script
-- [ ] Compile the smoother.c to MacOS & Windows executables
+- [X] Compile the smoother.c to MacOS 
+- [ ] Compile the smoother.c to Windows

@@ -10,7 +10,7 @@ from cloud_to_gts import gts_to_cloud
 def run_non_iterative(testing):
     
     print("***********************************************************")
-    print("Running Non-Iterative, Feature Preserving Mesh Smoothing...")
+    print("RUNNING NON ITERATIVE, FEATURE PRESERVING MESH SMOOTHING...")
     print("***********************************************************")
 
     arg1 = "1"
@@ -39,9 +39,16 @@ def run_non_iterative(testing):
 
     with open(in_file, 'r') as f:
         with open(out_file, 'w') as o:
-            # todo decide the environment 
-            # subprocess.run(["./smoother", arg1, arg1, dist_mode], stdin=f, stdout=o)
-            subprocess.run(["./smoother_mac", arg1, arg1, dist_mode], stdin=f, stdout=o)  # for mac only
+            system_id = 0
+            print()
+            print("********")
+            print("0: Linux")
+            print("1: MacOS")
+            system_id = int(input("What system are you on? "))
+            if (system_id == 1):
+                subprocess.run(["./smoother_mac", arg1, arg2, dist_mode], stdin=f, stdout=o) 
+            if (system_id == 0):
+                subprocess.run(["./smoother", arg1, arg2, dist_mode], stdin=f, stdout=o)
 
     out_xyz = "bunny_nims_smoothed.xyz"
     if (not testing):
