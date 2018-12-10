@@ -18,15 +18,16 @@ def run_non_iterative(testing):
     dist_mode = "1"
 
     if (not testing):
-        arg1 = input("sigma_f: ")
-        arg2 = input("sigma_g: ")
-
         print()
         print("Probability distribution options:")
         print("1: Gaussian")
         print("2: Exponential")
         print("3: Gamma")
         dist_mode = input("selection: ")
+
+        print()
+        arg1 = input("sigma_f: ")
+        arg2 = input("sigma_g: ")
 
     tri, points = input_triangulation(testing)
     gts_in = gts_write(tri, points, testing)
