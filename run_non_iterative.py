@@ -42,14 +42,14 @@ def run_non_iterative(testing):
             system_id = 0
             print()
             print("******** Select System *******")
-            print("0: Linux")
-            print("1: MacOS")
+            print("1: Linux")
+            print("2: MacOS")
             print("******************************")
             system_id = int(input("Selection:  "))
             print()
-            if (system_id == 1):
+            if (system_id == 2):
                 subprocess.run(["./smoother_mac", arg1, arg2, dist_mode], stdin=f, stdout=o) 
-            if (system_id == 0):
+            if (system_id == 1):
                 subprocess.run(["./smoother", arg1, arg2, dist_mode], stdin=f, stdout=o)
 
     out_xyz = "bunny_nims_smoothed.xyz"

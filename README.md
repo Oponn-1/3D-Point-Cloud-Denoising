@@ -30,6 +30,7 @@ To run denoising with user input:
 ```bash
 python3 denoise.py
 ```
+When running the Non-Iterative method with user input, you will be prompted to name two GTS files. These are simply the mesh files that are generated during the process, the first is passed into the smoother, and the second is the output of the smoother. This is automatically converted to .xyz, which you are also prompted to name. 
 
 ### Iterative Closest Point
 To run ICP on two .xyz files:
@@ -39,12 +40,16 @@ python3 run_icp.py
 
 > When prompted for a filename, always include the extension (it will either be .xyz or .gts, the prompt will tell you).
 
-## INCLUDED DATASET
-The package includes two .xyz files for testing. 
-- bunny.xyz is the base point cloud of a bunny
-- bunny_noisy.xyz is the same point cloud with artificial noise
+## INCLUDED DATASETS
+The package includes six .xyz files for testing. 
+- bunny.xyz 
+- bunny_noisy.xyz 
+- dragon.xyz 
+- dragon_noisy.xyz 
+- dog.xyz 
+- dog_noisy.xyz
 
-bunny_noisy.xyz serves for input, and bunny.xyz serves as a base for running ICP.
+Each pair of point clouds includes a base point cloud and a noisy version, named respectively. The bunny point clouds are the default used for the automated test. The artificial noise applied to the base point clouds to generate the noisy verisons was simply a random (and limited) vertex displacement.
 
 ## TO-DO 
 - [X] Write file conversion (.xyz to .gts)
