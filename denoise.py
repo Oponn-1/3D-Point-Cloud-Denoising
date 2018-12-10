@@ -24,6 +24,8 @@ def run_denoise():
 
     method = int(input("Selection: "))
 
+    print()
+
     if(method == 1):
         run_bilateral_denoising(False)
 

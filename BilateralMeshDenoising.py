@@ -166,16 +166,6 @@ def run_bilateral_denoising(testing):
 
     # Generate triangulation of the points, QJ ensures all points are used
     tri = Delaunay(points[:-1], qhull_options="Qbb Qc Qz Q12 QJ Qt")
-    '''
-    hull = ConvexHull(points)
-    hull_points = []
-    for v in hull.vertices:
-        hull_points.append(points[v])
-    points = hull_points
-    points = np.array(points)
-    tri = Delaunay(points[:-1], qhull_options="Qbb Qc Qz Q12 QJ Qt")
-    '''
-
 
     print("Triangulation Complete")
 
