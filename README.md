@@ -32,6 +32,18 @@ python3 denoise.py
 ```
 When running the Non-Iterative method with user input, you will be prompted to name two GTS files. These are simply the mesh files that are generated during the process, the first is passed into the smoother, and the second is the output of the smoother. This is automatically converted to .xyz, which you are also prompted to name. 
 
+#### Parameters
+The parameters will depend to some degree on the individual point cloud. However, based on our testing with the bunny dataset, the following are good parameters for each algorithm.
+Bilateral Mesh Smoothing:
+- Iterations: 2
+- Subsampling: 10
+- Neighbor Range: 2
+Non Iterative Feature Preserving Mesh Smoothing:
+- Distribution: Exponential
+- Subsampling: 5
+- Sigma_f: 2
+- Sigma_g: 2
+
 ### Iterative Closest Point
 To run ICP on two .xyz files:
 ```bash
