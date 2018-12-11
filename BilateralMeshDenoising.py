@@ -254,7 +254,7 @@ def run_bilateral_denoising(testing):
     # write the data in .xyz format to a file
     save_filename = "bunny_bms_denoised.xyz"
     if (not testing):
-        save_filename = input("Cleaned filename: ")
+        save_filename = input("Output .xyz filename: ")
     save_file = open(save_filename, "w")
     save_file.write("")
     save_file = open(save_filename, "a")

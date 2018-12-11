@@ -55,7 +55,7 @@ def run_non_iterative(testing):
 
     out_xyz = "bunny_nims_smoothed.xyz"
     if (not testing):
-        out_xyz = input("Output XYZ filename: ")
+        out_xyz = input("Output .xyz filename: ")
 
     gts_to_cloud(out_file, out_xyz)
 
