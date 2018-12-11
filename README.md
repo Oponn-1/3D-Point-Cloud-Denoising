@@ -38,6 +38,7 @@ Bilateral Mesh Smoothing:
 - Iterations: 2
 - Subsampling: 10
 - Neighbor Range: 2
+
 Non Iterative Feature Preserving Mesh Smoothing:
 - Distribution: Exponential
 - Subsampling: 5
