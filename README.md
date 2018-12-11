@@ -34,6 +34,7 @@ When running the Non-Iterative method with user input, you will be prompted to n
 
 #### Parameters
 The parameters will depend to some degree on the individual point cloud. However, based on our testing with the bunny dataset, the following are good parameters for each algorithm.
+
 Bilateral Mesh Smoothing:
 - Iterations: 2
 - Subsampling: 10
